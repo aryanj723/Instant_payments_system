@@ -1,0 +1,27 @@
+class User:
+    def __init__(self, name, account_balance):
+        self.name = name
+        self.account_balance = account_balance
+
+    def send_money(self, receiver, amount):
+        if self.account_balance >= amount:
+            self.account_balance -= amount
+            receiver.receive_money(amount)
+            print(f"{self.name} sent {amount} to {receiver.name}")
+        else:
+            print(f"{self.name} has insufficient balance to send {amount}")
+
+    def receive_money(self, amount):
+        self.account_balance += amount
+        print(f"{self.name} received {amount}")
+
+
+# Create two users
+user1 = User("User 1", 1000)
+user2 = User("User 2", 500)
+
+# User 1 sends 200 to User 2
+user1.send_money(user2, 200)
+
+# User 2 sends 1000 to User 1 (insufficient balance)
+user2.send_money(user1, 1000)
